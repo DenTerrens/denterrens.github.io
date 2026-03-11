@@ -36,7 +36,7 @@ mvn clean test -Papi -Denv=qa
 ```bash
 mvn clean test
 mvn allure:report
-mvn allure:serve`r`nmvn allure:report
+mvn allure:serve
 ```
 
 ## JMeter
@@ -86,13 +86,20 @@ mvn clean test -Pfailure-demo -Dgroups=ui,demo-failure
 mvn clean test -Pfailure-demo -Dgroups=api,demo-failure
 ```
 
+## Generated artifacts
 
+- `allure-results`: raw Allure result files and attachments
+- `allure-report`: persistent HTML Allure report
+- `reports/surefire`: Maven Surefire XML and text outputs
+- `logs/automation-framework.log`: rolling framework log file
 
+## Publish Allure to GitHub Pages
 
-Generated artifacts:
+A dedicated workflow is available at `.github/workflows/pages-allure-report.yml`.
 
-- llure-results: raw Allure result files and attachments
-- llure-report: persistent HTML Allure report
-- eports/surefire: Maven Surefire XML and text outputs
-- logs/automation-framework.log: rolling framework log file
+Before using it:
 
+1. Open `Settings -> Pages` in your repository.
+2. Select `GitHub Actions` as the publishing source.
+
+Then trigger the workflow manually or push changes to `main` or `master`. The workflow runs the functional suites, generates `allure-report`, and deploys that static site to GitHub Pages.

@@ -91,7 +91,7 @@ mvn clean test -Denv=qa -Dbrowser=firefox -Dheadless=false
 2. `ConfigManager` merges default and environment-specific properties.
 3. The requested test layer runs against public demo systems or local fixtures.
 4. Failure evidence is attached to Allure automatically.
-5. CI uploads Allure result artifacts and, for performance runs, JMeter reports.
+5. GitHub Actions uploads raw Allure result artifacts for functional suites and uploads JMeter artifacts for performance runs.
 
 
 ## Failure demo mode
@@ -110,7 +110,7 @@ Allure result files are written to `allure-results`, the persistent HTML report 
 ```bash
 mvn clean test
 mvn allure:report
-mvn allure:serve`r`nmvn allure:report
+mvn allure:serve
 ```
 
 For UI failures, the framework attaches:
@@ -127,6 +127,23 @@ For UI failures, the framework attaches:
 - File-level verification for generated execution outputs
 - Lightweight API performance smoke coverage via JMeter
 
+
+## GitHub Pages publishing
+
+The repository includes a GitHub Pages workflow that builds the Allure HTML report and publishes it through GitHub Actions.
+
+Repository settings:
+
+1. Open `Settings -> Pages`.
+2. Set the source to `GitHub Actions`.
+3. Run the `pages-allure-report` workflow manually or push to `main` or `master`.
+
+The workflow:
+
+- runs the functional test suite
+- generates the static Allure HTML report in `allure-report`
+- uploads that folder as the Pages artifact
+- deploys the report to your GitHub Pages site
 ## Documentation index
 
 - [Architecture](docs/ARCHITECTURE.md)
@@ -139,6 +156,9 @@ For UI failures, the framework attaches:
 - Add screenshots from generated Allure reports under `docs/assets/`
 - Publish the Allure HTML report with GitHub Pages
 - Record a short walkthrough showing UI, API, DB, file, and JMeter execution paths
+
+
+
 
 
 
