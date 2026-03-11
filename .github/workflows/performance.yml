@@ -1,0 +1,39 @@
+name: performance
+
+on:
+  workflow_dispatch:
+
+jobs:
+  jmeter-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install JMeter
+        run: |
+          curl -L https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.6.3.tgz -o jmeter.tgz
+          tar -xzf jmeter.tgz
+
+      - name: Run JMeter plan
+        run: |
+          apache-jmeter-5.6.3/bin/jmeter -n \
+            -t performance/jmeter/plans/reqres-smoke.jmx \
+            -l performance/jmeter/results.jtl \
+            -e -o performance/jmeter/report
+
+      - name: Upload JMeter artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jmeter-artifacts
+          path: |
+            performance/jmeter/results.jtl
+            performance/jmeter/report
+          if-no-files-found: ignore

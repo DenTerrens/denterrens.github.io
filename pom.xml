@@ -1,74 +1,199 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
-    <artifactId>automation_framework</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>com.automation</groupId>
+    <artifactId>automation-framework</artifactId>
+    <version>2.0.0</version>
+    <name>automation-framework</name>
+    <description>Portfolio-grade UI, API, DB, file, and performance automation framework</description>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.jupiter.version>5.12.0</junit.jupiter.version>
+        <junit.platform.version>1.12.0</junit.platform.version>
+        <playwright.version>1.51.0</playwright.version>
+        <rest.assured.version>5.5.1</rest.assured.version>
+        <allure.version>2.29.1</allure.version>
+        <jackson.version>2.18.3</jackson.version>
+        <commons.csv.version>1.13.0</commons.csv.version>
+        <slf4j.version>2.0.17</slf4j.version>
+        <h2.version>2.3.232</h2.version>
+        <surefire.version>3.5.2</surefire.version>
+        <groups></groups>
+        <excludedGroups>demo-failure</excludedGroups>
+        <includeFailureDemos>false</includeFailureDemos>
+        <browser>chromium</browser>
+        <headless>true</headless>
+        <env>local</env>
+        <allure.results.directory>${project.basedir}/allure-results</allure.results.directory>
+        <allure.report.directory>${project.basedir}/allure-report</allure.report.directory>
+        <surefire.reports.directory>${project.basedir}/reports/surefire</surefire.reports.directory>
     </properties>
 
     <dependencies>
-        <!-- Selenium -->
         <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>4.5.0</version>
+            <groupId>com.microsoft.playwright</groupId>
+            <artifactId>playwright</artifactId>
+            <version>${playwright.version}</version>
         </dependency>
-
-        <!-- RestAssured -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>5.3.2</version>
-            <scope>test</scope>
+            <version>${rest.assured.version}</version>
         </dependency>
-
-        <!-- TestNG -->
         <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>7.5</version>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-schema-validator</artifactId>
+            <version>${rest.assured.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- Allure Reporting -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>${junit.platform.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-testng</artifactId>
-            <version>2.27.0</version>
+            <artifactId>allure-junit5</artifactId>
+            <version>${allure.version}</version>
+            <scope>test</scope>
         </dependency>
-
-        <!-- WebDriver Manager -->
         <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>5.5.3</version>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-rest-assured</artifactId>
+            <version>${allure.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-java-commons</artifactId>
+            <version>${allure.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>${commons.csv.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.27.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.5.18</version>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>io.qameta.allure</groupId>
-                <artifactId>allure-maven</artifactId>
-                <version>2.13.0</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.14.0</version>
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>${surefire.version}</version>
                 <configuration>
-                    <testFailureIgnore>true</testFailureIgnore> <!-- Allow build to continue despite test failures -->
+                    <useModulePath>false</useModulePath>
+                    <reportsDirectory>${surefire.reports.directory}</reportsDirectory>
+                    <systemPropertyVariables>
+                        <browser>${browser}</browser>
+                        <headless>${headless}</headless>
+                        <env>${env}</env>
+                        <includeFailureDemos>${includeFailureDemos}</includeFailureDemos>
+                        <allure.results.directory>${allure.results.directory}</allure.results.directory>
+                    </systemPropertyVariables>
+                    <groups>${groups}</groups>
+                    <excludedGroups>${excludedGroups}</excludedGroups>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.12.0</version>
+                <configuration>
+                    <resultsDirectory>${allure.results.directory}</resultsDirectory>
+                    <reportDirectory>${allure.report.directory}</reportDirectory>
                 </configuration>
             </plugin>
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>failure-demo</id>
+            <properties>
+                <includeFailureDemos>true</includeFailureDemos>
+                <excludedGroups></excludedGroups>
+                <groups>demo-failure</groups>
+            </properties>
+        </profile>
+        <profile>
+            <id>ui</id>
+            <properties>
+                <groups>ui</groups>
+            </properties>
+        </profile>
+        <profile>
+            <id>api</id>
+            <properties>
+                <groups>api</groups>
+            </properties>
+        </profile>
+        <profile>
+            <id>db</id>
+            <properties>
+                <groups>db</groups>
+            </properties>
+        </profile>
+        <profile>
+            <id>files</id>
+            <properties>
+                <groups>files</groups>
+            </properties>
+        </profile>
+        <profile>
+            <id>integration</id>
+            <properties>
+                <groups>integration</groups>
+            </properties>
+        </profile>
+    </profiles>
 </project>

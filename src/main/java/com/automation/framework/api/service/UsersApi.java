@@ -1,0 +1,19 @@
+package com.automation.framework.api.service;
+
+import com.automation.framework.api.client.ApiClient;
+import com.automation.framework.config.ConfigManager;
+import io.restassured.response.Response;
+
+import java.util.Map;
+
+public class UsersApi {
+    private final ApiClient client = new ApiClient(ConfigManager.get("api.baseUrl"), Map.of());
+
+    public Response getUser(int userId) {
+        return client.get("/users/" + userId);
+    }
+
+    public Response createUser(String payload) {
+        return client.post("/users", payload);
+    }
+}

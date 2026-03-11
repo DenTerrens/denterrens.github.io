@@ -1,0 +1,5 @@
+{
+  "suite": "api-smoke",
+  "status": "PASSED",
+  "checks": 5
+}
