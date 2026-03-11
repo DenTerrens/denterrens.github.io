@@ -4,11 +4,6 @@ on:
   workflow_dispatch:
   push:
     branches: [ main, master ]
-    paths:
-      - 'src/main/**'
-      - 'src/test/**'
-      - 'pom.xml'
-      - '.github/workflows/ui-smoke.yml'
 
 jobs:
   playwright-ui:
@@ -34,4 +29,3 @@ jobs:
           name: allure-results-ui
           path: allure-results
           if-no-files-found: ignore
-

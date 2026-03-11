@@ -10,7 +10,7 @@ A flagship Java automation framework built to demonstrate enterprise-grade SDET 
 - File verification utilities for text, CSV, TSV, JSON, XML, and generated outputs
 - Allure reporting with screenshots, DOM snapshots, and API attachments
 - JMeter performance assets for smoke-level API performance checks
-- GitHub Actions workflows for functional and performance execution
+- GitHub Actions workflows for functional, UI smoke, performance, and Pages publishing
 - Maven + JUnit 5 execution model with tag-based targeting and parallel execution
 
 ## Feature matrix
@@ -156,6 +156,7 @@ The workflow:
 - Add screenshots from generated Allure reports under `docs/assets/`
 - Publish the Allure HTML report with GitHub Pages
 - Record a short walkthrough showing UI, API, DB, file, and JMeter execution paths
+
 
 
 
