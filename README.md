@@ -126,6 +126,7 @@ For UI failures, the framework attaches:
 - Database verification after upstream workflow activity
 - File-level verification for generated execution outputs
 - Lightweight API performance smoke coverage via JMeter
+- GitHub Actions performance runs publish a concise JMeter summary in the job log and workflow summary
 
 
 ## GitHub Pages publishing
@@ -156,6 +157,8 @@ The workflow:
 - Add screenshots from generated Allure reports under `docs/assets/`
 - Publish the Allure HTML report with GitHub Pages
 - Record a short walkthrough showing UI, API, DB, file, and JMeter execution paths
+
+
 
 
 

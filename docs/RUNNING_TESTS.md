@@ -103,3 +103,14 @@ Before using it:
 2. Select `GitHub Actions` as the publishing source.
 
 Then trigger the workflow manually or push changes to `main` or `master`. The workflow runs the functional suites, generates `allure-report`, and deploys that static site to GitHub Pages.
+
+## Performance workflow output
+
+The `performance` workflow uploads the raw `.jtl` file and HTML report as artifacts. It also prints a concise JMeter summary into the GitHub Actions job log and the run summary, including:
+
+- sample count
+- failure count
+- average response time
+- minimum response time
+- maximum response time
+- approximate 95th percentile response time
